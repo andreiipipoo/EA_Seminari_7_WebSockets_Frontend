@@ -29,7 +29,7 @@ export class ChatComponent implements OnInit {
 
   sendMessage(): void {
     if (this.message) {
-      this.messages.push({ text: this.message, type: 'sent' });;
+      this.messages.push({ message: this.message, type: 'sent', date: new Date() });;
       this.chatService.sendMessage(this.message);
       this.message = '';
       this.scrollToBottom(); // Forzar el scroll hacia abajo
@@ -40,7 +40,8 @@ export class ChatComponent implements OnInit {
   listMessage(){
     this.chatService.getMessage().subscribe((data) => {
       console.log('Mensaje recibido:', data);
-      this.messages.push({ text: data, type: 'received' });
+      //Modifiquem el missatge perque aparegui la data
+      this.messages.push({ message: data.message, type: 'received' , date: data.date});
       console.log(data);
       this.scrollToBottom(); // Forzar el scroll hacia abajo cuando se recibe un mensaje
     });
